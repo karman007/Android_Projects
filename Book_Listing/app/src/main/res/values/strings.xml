@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2016 The Android Open Source Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+-->
+<resources>
+    <string name="app_name">Book Listing</string>
+    <string name="near_the">Near the</string>
+    <string name="no_books">No books found</string>
+    <string name="no_internet_connection">No internet connection</string>
+    <string name="settings_menu_item">Settings</string>
+    <string name="settings_title">Book Search Settings</string>
+    <string name="settings_max_results_label">Maximum Results</string>
+    <string name="settings_max_results_key"
+        translatable="false">max_results</string>
+    <string name="settings_max_results_default" translatable="false">10</string>
+
+    <!-- Strings For Order-By Preference [CHAR LIMIT=30] -->
+    <string name="settings_order_by_label">Order By</string>
+    <string name="settings_order_by_key" translatable="false">order_by</string>
+    <string name="settings_order_by_default" translatable="false">@string/settings_order_by_all_value</string>
+
+    <!-- Label for order-by all option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_all_label">All</string>
+    <string name="settings_order_by_all_value" translatable="false">all</string>
+
+    <!-- Label for order-by books option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_books_label">Books</string>
+    <string name="settings_order_by_books_value" translatable="false">books</string>
+
+    <!-- Label for order-by magazines option [CHAR LIMIT=20] -->
+    <string name="settings_order_by_magazines_label">Magazines</string>
+    <string name="settings_order_by_magazines_value" translatable="false">magazines</string>
+
+</resources>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:orientation="vertical"
+    android:paddingEnd="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingStart="16dp"
+    android:paddingTop="8dp">
+
+
+    <TextView
+        android:id="@+id/title_of_book"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:fontFamily="sans-serif-medium"
+        android:maxLines="1"
+        android:textAllCaps="true"
+        android:textStyle="bold|italic"
+        android:textColor="@android:color/black"
+        android:textSize="20sp"
+        tools:text="Title" />
+
+    <TextView
+        android:id="@+id/authors"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:textColor="@color/textColorEarthquakeLocation"
+        android:textSize="16sp"
+        android:textStyle="italic"
+        tools:text="Authors" />
+
+</LinearLayout>

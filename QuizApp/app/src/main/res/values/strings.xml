@@ -1,0 +1,19 @@
+<resources xmlns:xliff="http://schemas.android.com/tools">
+    <string name="app_name">Quiz App</string>
+
+
+    <string name="reset_button">Reset</string>
+    <string name="next_button">Next</string>
+    <string name="done_button">Done</string>
+    <string name="start_button">Start</string>
+    <string name="question_number">Question Number: <xliff:g id = "number" example="1">%s</xliff:g></string>
+    <string name="welcome_message">QUIZ GAME \nPRESS START TO BEGIN</string>
+    <string name="score_message">QUIZ FINISHED \nYOU SCORED : <xliff:g id = "score" example="1">%s</xliff:g></string>
+    <string name="unknown_answer">Not sure</string>
+    <string name="rating_text">Please rate the quiz</string>
+    <string name="america">America</string>
+    <string name="australia">Australia</string>
+    <string name="south_australia">South Australia</string>
+
+
+</resources>

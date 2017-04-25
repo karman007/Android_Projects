@@ -1,0 +1,88 @@
+<resources>
+    <string name="app_name">Tour Guide</string>
+
+    <!-- Cafe Names -->
+    <string name="mocan">Močan &amp; Green Grout</string>
+    <string name="cupping_room">The Cupping Room</string>
+    <string name="fellows">THE Fellows</string>
+    <string name="cream">Cream</string>
+    <string name="ivy_fox">Ivy &amp; The Fox</string>
+
+    <!-- Cafe Descriptions -->
+    <string name="mocan_des">Stylish, retro-chic nook, with inventive meals cooked in an open kitchen, plus fair-trade espresso.</string>
+    <string name="cupping_room_des">Hip, airy joint with outdoor seats and exposed rafters, serving up boutique coffee and cafe staples.</string>
+    <string name="fellows_des">Laid-back chain with stylish decor, doling out traditional Malaysian meals, drinks and desserts.</string>
+    <string name="cream_des">Coffee and an international menu in a light-filled, open-plan art deco building with outdoor tables.</string>
+    <string name="ivy_fox_des">Laid-back place with a seasonal brunch menu and parkland views, plus a courtyard and a deck.</string>
+
+    <!-- Cafe Locations -->
+    <string name="mocan_loc">geo:0,0?q=-35.284891, 149.125038(Močan &amp; Green Grout)</string>
+    <string name="cupping_room_loc">geo:0,0?q=-35.280506, 149.126062(The Cupping Room)</string>
+    <string name="fellows_loc">geo:0,0?q=-35.283951, 149.117655(THE Fellows)</string>
+    <string name="cream_loc">geo:0,0?q=-35.277466, 149.132256(Cream)</string>
+    <string name="ivy_fox_loc">geo:0,0?q=-35.288033, 149.116265(Ivy &amp; The Fox)</string>
+
+
+    <!-- Entertainment Names -->
+    <string name="siam">Siam Paragon</string>
+    <string name="berjaya">Berjaya Times Square</string>
+    <string name="istanbul">Istanbul Cevahir</string>
+    <string name="sm_megamall">SM Megamall</string>
+    <string name="new_south_china_mall">New South China Mall</string>
+
+    <!-- Entertainment Descriptions -->
+    <string name="siam_des">Siam Paragon in Bangkok is one of the largest shopping malls in Thailand. Only the nearby CentralWorld is larger.</string>
+    <string name="berjaya_des">Located in Kuala Lumpur, Berjaya Times Square is a twin tower complex containing a shopping center and two five star hotels.</string>
+    <string name="istanbul_des">Located on the European side of Istanbul in Turkey, the Cevahir Shopping and Entertainment Centre opened its doors in 2005.</string>
+    <string name="sm_megamall_des">Opened in 1991, SM Megamall in Metro Manila is one of the largest malls in the Philippines. The mall attracts a daily foot traffic of 800,000 people.</string>
+    <string name="new_south_china_mall_des">New South China Mall in Dongguan, China, is the largest mall in the world based on gross leasable area.</string>
+
+    <!-- Entertainment Locations -->
+    <string name="siam_loc">geo:0,0?q=13.746823, 100.534944(Siam Paragon)</string>
+    <string name="berjaya_loc">geo:0,0?q=3.142300, 101.710841(Berjaya Times Square )</string>
+    <string name="istanbul_loc">geo:0,0?q=41.062744, 28.993124(Istanbul Cevahir )</string>
+    <string name="sm_megamall_loc">geo:0,0?q=14.583368, 121.057163(SM Megamall)</string>
+    <string name="new_south_china_mall_loc">geo:0,0?q=23.034710, 113.725019(New South China Mall)</string>
+
+    <!-- Restaurants Names -->
+    <string name="bicicletta">Bicicletta Restaurant</string>
+    <string name="teatro">Teatro Vivaldi Restaurant</string>
+    <string name="pappaRich">PappaRich</string>
+    <string name="bAKER">A. BAKER</string>
+    <string name="parlour">Parlour</string>
+
+    <!-- Restaurants Descriptions -->
+    <string name="bicicletta_des">Homemade pizza, pasta and gelato in a convivial spot with a separate bar and a garden courtyard.</string>
+    <string name="teatro_des">Buzzy venue adorned with film and theatre memorabilia, offering a global menu, plus cabaret shows.</string>
+    <string name="pappaRich_des">Laid-back chain with stylish decor, doling out traditional Malaysian meals, drinks and desserts.</string>
+    <string name="bAKER_Des">Seasonal dishes, plus homemade bread, in an edgy setting with distressed walls and an open kitchen.</string>
+    <string name="parlour_des">Spanish share plates and upscale wine served in an art deco dining hall with plush furniture.</string>
+
+    <!-- Restaurants Location -->
+    <string name="bicicletta_loc">geo:0,0?q=-35.284634, 149.123840(Bicicletta Restaurant)</string>
+    <string name="teatro_loc">geo:0,0?q=-35.277286, 149.120246(Teatro Vivaldi Restaurant)</string>
+    <string name="pappaRich_loc">geo:0,0?q=-35.277749, 149.133174(PappaRich)</string>
+    <string name="bAKER_loc">geo:0,0?q=-35.284663, 149.123979(A. BAKER)</string>
+    <string name="parlour_loc">geo:0,0?q=-35.284933, 149.123905(Parlour)</string>
+
+    <!-- Must See Names -->
+    <string name="great_barrier_reef">Great Barrier Reef</string>
+    <string name="pyramids_of_giza">Pyramids of Giza</string>
+    <string name="stonehenge">Stonehenge</string>
+    <string name="grand_canyon">The Grand Canyon</string>
+    <string name="easter_island">Easter Island</string>
+
+    <!-- Must See Descriptions -->
+    <string name="great_barrier_reef_des">The Great Barrier Reef is the largest collection of coral reefs in the world, spanning over 1,400 miles.</string>
+    <string name="pyramids_of_giza_des">As the only one of the Seven Ancient Wonders of the World still largely intact.</string>
+    <string name="stonehenge_des">Lots of mystery surrounds Stonehenge, and contrary to those who believe it’s just a pile of 25-ton rocks.</string>
+    <string name="grand_canyon_des">Carved over thousands of years by the Colorado River, the Grand Canyon is a sight to behold.</string>
+    <string name="easter_island_des">Like Stonehenge, no one really knows the story behind the 887 Easter Island “moai” statues.</string>
+
+    <!-- Must See Locations-->
+    <string name="great_barrier_reef_loc">geo:0,0?q=-17.999786, 146.833333(Great Barrier Reef)</string>
+    <string name="pyramids_of_giza_loc">geo:0,0?q=29.979216, 31.134197(Pyramids of Giza)</string>
+    <string name="stonehenge_loc">geo:0,0?q=51.178855, -1.826183(Stonehenge)</string>
+    <string name="grand_canyon_loc">geo:0,0?q=36.055053, -112.139468(The Grand Canyon)</string>
+    <string name="easter_island_loc">geo:0,0?q=-27.105488, -109.350146(Easter Island)</string>
+</resources>

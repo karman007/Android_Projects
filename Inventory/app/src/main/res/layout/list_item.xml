@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <TextView
+        android:id="@+id/product_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-medium"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:text="Name"/>
+
+    <Button
+        android:id="@+id/sale_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SALE"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"/>
+
+    <ImageView
+        android:id="@+id/product_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@mipmap/ic_launcher"
+        android:layout_toLeftOf="@id/sale_button"/>
+
+
+    <LinearLayout
+        android:id="@+id/summary_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="8dp"
+        android:layout_below="@id/product_name"
+        android:layout_toLeftOf="@id/product_image">
+
+        <TextView
+            android:id="@+id/product_quantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:text="Quantity:" />
+
+        <TextView
+            android:id="@+id/product_price"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:fontFamily="sans-serif-medium"
+            android:textAppearance="?android:textAppearanceSmall"
+            android:text="Price:" />
+
+    </LinearLayout>
+</RelativeLayout>
