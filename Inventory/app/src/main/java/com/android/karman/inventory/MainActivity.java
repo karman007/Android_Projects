@@ -15,7 +15,9 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.karman.inventory.data.ItemContract.ItemEntry;
 
@@ -23,7 +25,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final int ITEM_LOADER = 0;
 
-    ItemCursorAdapter cursorAdapter;
+    private ItemCursorAdapter cursorAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,7 +62,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
-
         getLoaderManager().initLoader(ITEM_LOADER,null, this);
     }
 
@@ -69,6 +70,8 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         values.put(ItemEntry.COLUMN_PRODUCT_NAME, "Hard Drives");
         values.put(ItemEntry.COLUMN_PRODUCT_QUANTITY, 10);
         values.put(ItemEntry.COLUMN_PRODUCT_PRICE, 999.95);
+        values.put(ItemEntry.COLUMN_SUPPLIER_NAME, "Karman");
+        values.put(ItemEntry.COLUMN_SUPPLIER_EMAIL, "supplier_name@gmail.com");
 
         Uri newUri = getContentResolver().insert(ItemEntry.CONTENT_URI, values);
     }

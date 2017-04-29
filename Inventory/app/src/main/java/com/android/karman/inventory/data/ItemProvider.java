@@ -64,6 +64,7 @@ public class ItemProvider extends ContentProvider {
                 throw new IllegalArgumentException("Cannot query unknown URI "+ uri);
         }
 
+        Log.e(LOG_TAG,"URI: " +uri );
         cursor.setNotificationUri(getContext().getContentResolver(), uri);
         return cursor;
     }
@@ -123,12 +124,12 @@ public class ItemProvider extends ContentProvider {
         final int match = sUriMatcher.match(uri);
         switch (match){
             case PRODUCTS:
-                return updatePet(uri,values,selection,selectionArgs);
+                return updateProduct(uri,values,selection,selectionArgs);
             case PRODUCT_ID:
                 selection = ItemEntry._ID + "=?";
                 selectionArgs = new String[]{String.valueOf(ContentUris.parseId(uri))};
 
-                return updatePet(uri,values,selection,selectionArgs);
+                return updateProduct(uri,values,selection,selectionArgs);
             default:
                 throw new IllegalArgumentException("Update is not supported for "+uri);
         }
@@ -136,20 +137,24 @@ public class ItemProvider extends ContentProvider {
 
     private Uri insertProduct(Uri uri, ContentValues values){
 
-
-        String name = values.getAsString(ItemContract.ItemEntry.COLUMN_PRODUCT_NAME);
+        String name = values.getAsString(ItemEntry.COLUMN_PRODUCT_NAME);
         if (name == null){
             throw new IllegalArgumentException("Product requires a name");
         }
 
-        Integer price = values.getAsInteger(ItemEntry.COLUMN_PRODUCT_PRICE);
-        if (price != null && price < 0){
+        Double price = values.getAsDouble(ItemEntry.COLUMN_PRODUCT_PRICE);
+        if (price != null && price < 0.0){
             throw new IllegalArgumentException("Product requires valid price");
         }
 
-        Integer quantity = values.getAsInteger(ItemEntry.COLUMN_PRODUCT_PRICE);
+        Integer quantity = values.getAsInteger(ItemEntry.COLUMN_PRODUCT_QUANTITY);
         if (quantity != null && quantity < 0){
             throw new IllegalArgumentException("Product requires valid quantity");
+        }
+
+        String sup_email = values.getAsString(ItemEntry.COLUMN_SUPPLIER_EMAIL);
+        if (sup_email == null){
+            throw new IllegalArgumentException("Supplier requires a email");
         }
 
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
@@ -166,7 +171,7 @@ public class ItemProvider extends ContentProvider {
         return ContentUris.withAppendedId(uri,id);
     }
 
-    private int updatePet(Uri uri, ContentValues values, String selection, String[] selectionArgs){
+    private int updateProduct(Uri uri, ContentValues values, String selection, String[] selectionArgs){
 
         if (values.size() == 0){
             return 0;
@@ -180,8 +185,8 @@ public class ItemProvider extends ContentProvider {
         }
 
         if (values.containsKey(ItemContract.ItemEntry.COLUMN_PRODUCT_PRICE)){
-            Integer price = values.getAsInteger(ItemContract.ItemEntry.COLUMN_PRODUCT_PRICE);
-            if (price != null && price < 0){
+            Double price = values.getAsDouble(ItemContract.ItemEntry.COLUMN_PRODUCT_PRICE);
+            if (price != null && price < 0.0){
                 throw new IllegalArgumentException("Product requires valid price");
             }
         }
@@ -193,7 +198,12 @@ public class ItemProvider extends ContentProvider {
             }
         }
 
-
+        if (values.containsKey(ItemEntry.COLUMN_SUPPLIER_EMAIL)){
+            String sup_email = values.getAsString(ItemEntry.COLUMN_SUPPLIER_EMAIL);
+            if (sup_email == null){
+                throw new IllegalArgumentException("Supplier requires a email");
+            }
+        }
 
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
 

@@ -23,19 +23,25 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.android.karman.inventory.data.ItemContract;
 import com.android.karman.inventory.data.ItemContract.ItemEntry;
+import com.android.karman.inventory.data.ItemProvider;
 
 /**
  * Allows user to create a new pet or edit an existing one.
@@ -48,11 +54,24 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     private EditText mPriceEditText;
 
+    private EditText mSupplierName;
+
+    private EditText mSupplierEmail;
+
+    private Button mModifyButton;
+
+    private Button mMOrderButton;
+
+    private Button mDeleteButton;
+
+    private Button mPictureButton;
+
     private static final int EXISTING_ITEM_LOADER = 0;
 
     private Uri currentItemUri;
 
     private boolean itemHasChanged = false;
+
 
     private View.OnTouchListener touchListener = new View.OnTouchListener() {
         @Override
@@ -61,6 +80,12 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             return false;
         }
     };
+
+    public static final String LOG_TAG = EditorActivity.class.getSimpleName();
+
+    public static final int REQUEST_IMAGE_GET = 1;
+
+    private Uri fullPhotoUri;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,26 +108,103 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         mNameEditText = (EditText) findViewById(R.id.edit_product_name);
         mQuantityEditText = (EditText) findViewById(R.id.edit_product_quantity);
         mPriceEditText = (EditText) findViewById(R.id.edit_product_price);
+        mSupplierName = (EditText) findViewById(R.id.edit_supplier_name);
+        mSupplierEmail = (EditText) findViewById(R.id.edit_supplier_email);
 
         mNameEditText.setOnTouchListener(touchListener);
         mQuantityEditText.setOnTouchListener(touchListener);
         mPriceEditText.setOnTouchListener(touchListener);
+        mSupplierName.setOnTouchListener(touchListener);
+        mSupplierEmail.setOnTouchListener(touchListener);
 
+        mModifyButton = (Button) findViewById(R.id.modify_button);
+        mMOrderButton = (Button) findViewById(R.id.order_button);
+        mDeleteButton = (Button) findViewById(R.id.delete_button);
+        mPictureButton = (Button) findViewById(R.id.picture_button);
+
+        mDeleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDeleteConfirmationDialog();
+            }
+        });
+
+        mModifyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                savePet();
+            }
+        });
+
+        mMOrderButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String message = createOrderSummary();
+
+                Intent intent = new Intent(Intent.ACTION_SEND);
+                intent.setType("*/*");
+                intent.putExtra(Intent.EXTRA_EMAIL, mSupplierEmail.getText().toString().trim());
+                intent.putExtra(Intent.EXTRA_SUBJECT, mSupplierName.getText().toString().trim() + ", Order");
+                intent.putExtra(Intent.EXTRA_TEXT, message);
+
+                if(intent.resolveActivity(getPackageManager())!= null){
+                    startActivity(intent);
+                }
+            }
+        });
+
+        mPictureButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.setType("image/*");
+                if (intent.resolveActivity(getPackageManager()) != null){
+                    startActivityForResult(intent, REQUEST_IMAGE_GET);
+                }
+            }
+        });
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_IMAGE_GET && resultCode == RESULT_OK){
+            Bitmap thumbnail = data.getParcelableExtra("data");
+            fullPhotoUri = data.getData();
+        }
+    }
+
+    private String createOrderSummary(){
+        String orderSummary = "Order for: " + mNameEditText.getText();
+        orderSummary += "\nQuantity remaining: " + mQuantityEditText.getText();
+        orderSummary += "\nPrice offered:" + mPriceEditText.getText();
+
+        return orderSummary ;
     }
 
     private void savePet() {
         String nameString = mNameEditText.getText().toString().trim();
         String quantityString = mQuantityEditText.getText().toString().trim();
         String priceString = mPriceEditText.getText().toString().trim();
+        String supplierNameString = mSupplierName.getText().toString().trim();
+        String supplierEmailString = mSupplierEmail.getText().toString().trim();
+
 
         if (currentItemUri == null &&
                 TextUtils.isEmpty(nameString) && TextUtils.isEmpty(quantityString) &&
-                TextUtils.isEmpty(priceString)) {
+                TextUtils.isEmpty(priceString) && TextUtils.isEmpty(supplierEmailString)) {
             return;
         }
 
         ContentValues values = new ContentValues();
         values.put(ItemEntry.COLUMN_PRODUCT_NAME, nameString);
+
+        if (fullPhotoUri != null){
+            String productImage = fullPhotoUri.toString();
+            values.put(ItemEntry.COLUMN_PRODUCT_IMAGE,productImage);
+        }
 
         int quantity = 0;
         if (!TextUtils.isEmpty(quantityString)) {
@@ -110,11 +212,14 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
         }
         values.put(ItemEntry.COLUMN_PRODUCT_QUANTITY, quantity);
 
-        int price = 0;
+        double price = 0;
         if (!TextUtils.isEmpty(priceString)) {
-            price = Integer.parseInt(priceString);
+            price = Double.parseDouble(priceString);
         }
         values.put(ItemEntry.COLUMN_PRODUCT_PRICE, price);
+
+        values.put(ItemEntry.COLUMN_SUPPLIER_NAME,supplierNameString);
+        values.put(ItemEntry.COLUMN_SUPPLIER_EMAIL,supplierEmailString);
 
         if (currentItemUri == null) {
 
@@ -146,11 +251,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
         super.onPrepareOptionsMenu(menu);
-
-        if (currentItemUri == null) {
-            MenuItem menuItem = menu.findItem(R.id.action_delete);
-            menuItem.setVisible(false);
-        }
         return true;
     }
 
@@ -161,9 +261,6 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             case R.id.action_save:
                 savePet();
                 finish();
-                return true;
-            case R.id.action_delete:
-                showDeleteConfirmationDialog();
                 return true;
             case android.R.id.home:
                   if (!itemHasChanged) {
@@ -206,7 +303,9 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
                 ItemEntry._ID,
                 ItemEntry.COLUMN_PRODUCT_NAME,
                 ItemEntry.COLUMN_PRODUCT_QUANTITY,
-                ItemEntry.COLUMN_PRODUCT_PRICE};
+                ItemEntry.COLUMN_PRODUCT_PRICE,
+                ItemEntry.COLUMN_SUPPLIER_NAME,
+                ItemEntry.COLUMN_SUPPLIER_EMAIL};
 
         return new CursorLoader(this,
                 currentItemUri,
@@ -218,7 +317,7 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
 
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
-        if (data != null || data.getCount() < 1) {
+        if (data == null || data.getCount() < 1) {
             return;
         }
 
@@ -226,15 +325,21 @@ public class EditorActivity extends AppCompatActivity implements LoaderManager.L
             int nameColIdx = data.getColumnIndex(ItemEntry.COLUMN_PRODUCT_NAME);
             int quantityColIdx = data.getColumnIndex(ItemEntry.COLUMN_PRODUCT_QUANTITY);
             int priceColIdx = data.getColumnIndex(ItemEntry.COLUMN_PRODUCT_PRICE);
+            int supplierNameColIdx = data.getColumnIndex(ItemEntry.COLUMN_SUPPLIER_NAME);
+            int supplierEmailColIdx = data.getColumnIndex(ItemEntry.COLUMN_SUPPLIER_EMAIL);
 
 
             String name = data.getString(nameColIdx);
-            int price = data.getInt(priceColIdx);
+            double price = data.getDouble(priceColIdx);
             int quantity = data.getInt(quantityColIdx);
+            String sup_name = data.getString(supplierNameColIdx);
+            String sup_email = data.getString(supplierEmailColIdx);
 
             mNameEditText.setText(name);
-            mQuantityEditText.setText(quantity);
-            mPriceEditText.setText(price);
+            mQuantityEditText.setText(Integer.toString(quantity));
+            mPriceEditText.setText(Double.toString(price));
+            mSupplierName.setText(sup_name);
+            mSupplierEmail.setText(sup_email);
 
         }
     }

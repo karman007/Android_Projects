@@ -18,6 +18,7 @@
     tools:context=".EditorActivity">
 
     <LinearLayout
+        android:id="@+id/detail_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -35,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:fontFamily="sans-serif-medium"
-                android:text="Name"
+                android:text="Product"
                 android:textAppearance="?android:textAppearanceMedium" />
 
             <!-- Name field -->
@@ -100,7 +101,66 @@
                 android:inputType="numberDecimal" />
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <!-- Label -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
+                android:text="Supplier"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <!-- Name field -->
+            <EditText
+                android:id="@+id/edit_supplier_name"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint="Name"
+                android:inputType="textCapWords" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="12dp">
+
+            <!-- Label -->
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:fontFamily="sans-serif-medium"
+                android:text="Email"
+                android:textAppearance="?android:textAppearanceMedium" />
+
+            <!-- Name field -->
+            <EditText
+                android:id="@+id/edit_supplier_email"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:hint="Supplier Email"
+                android:inputType="textCapWords" />
+
+        </LinearLayout>
+
     </LinearLayout>
+
+    <Button
+        android:id="@+id/picture_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/detail_layout"
+        android:text="Product\nPicture"/>
 
     <Button
         android:id="@+id/delete_button"
